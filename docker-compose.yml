@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  firstproject:
+    build: 
+      context: FirstProject
+      args:
+        URL: "http://secondproject"
+    ports:
+      - 5000:80
+    volumes:
+      - './FirstProject/src:/app'
+    networks:
+      - common
+    depends_on:
+      - secondproject
+  secondproject:
+    build: SecondProject
+    ports:
+      - 5001:80
+    volumes:
+      - './SecondProject/src:/app'
+    networks:
+      - common
+networks:
+  common:
